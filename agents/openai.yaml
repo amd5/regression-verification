@@ -1,0 +1,6 @@
+interface:
+  display_name: "回归验证"
+  short_description: "维护跨仓、UI 与授权历史返工回归门禁，防止旧问题回流"
+  default_prompt: "Use $regression-verification after the final file write to automatically execute the project-declared completion entrypoint, rerun it after any later write, and audit changed-file, UI, design-source, and any explicitly authorized privacy-safe Codex rework coverage before declaring this coding task complete."
+policy:
+  allow_implicit_invocation: true

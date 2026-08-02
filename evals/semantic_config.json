@@ -1,0 +1,52 @@
+{
+  "mode": "concept_weighted",
+  "threshold": 0.2,
+  "positive_required_any": ["completion_gate", "regression_maintenance", "coverage_audit", "cross_repo", "release_gate", "ui_design", "codex_rework"],
+  "positive_concepts": {
+    "completion_gate": {
+      "weight": 0.42,
+      "phrases": ["回归验证", "防止回归", "完工验证", "完成前验证", "completion gate", "regression gate", "每次写完代码", "每次代码完成", "补齐依赖后执行", "验证一起闭环", "发布前跑", "自动执行完工入口", "无需用户提醒", "无需我提醒", "最后一次文件写入", "最后一次写文件"]
+    },
+    "regression_maintenance": {
+      "weight": 0.38,
+      "phrases": ["regression", "回归目录", "回归中心", "模块化回归", "检查拆分", "权威检查器", "回归项", "regression-verification", "当前改动", "选择需要的业务板块", "补齐依赖", "项目声明的完工入口", "Codex 自动触发"]
+    },
+    "coverage_audit": {
+      "weight": 0.35,
+      "phrases": ["不要遗漏", "全量扫描", "全部覆盖", "测试清单", "tools 目录", "原生测试", "coverage audit", "native test inventory", "检查拆分", "按模块执行"]
+    },
+    "cross_repo": {
+      "weight": 0.3,
+      "phrases": ["多端", "多仓", "跨仓", "多个仓库", "服务端", "管理端", "客户端", "节点核心", "cross-repository"]
+    },
+    "release_gate": {
+      "weight": 0.3,
+      "phrases": ["发布前", "full", "release", "real-device", "post-release", "真机", "生产回读"]
+    },
+    "ui_design": {
+      "weight": 0.38,
+      "phrases": ["UI回归", "视觉回归", "设计图回归", "批准设计源", "设计标注", "截图验证", "viewport", "visual regression", "design source"]
+    },
+    "codex_rework": {
+      "weight": 0.42,
+      "phrases": ["Codex误改", "写+还原", "反复还原", "自动加入回归", "重复返工", "rework history", "write correction write"]
+    }
+  },
+  "negative_concepts": {
+    "no_action": {
+      "weight": 0.75,
+      "exclusive": true,
+      "phrases": ["不要修改", "不要执行", "不需要跑", "仅分析", "只解释", "without running", "without changing"]
+    },
+    "status": {
+      "weight": 0.6,
+      "exclusive": true,
+      "phrases": ["进行到哪", "当前状态", "status only", "刚才的测试"]
+    },
+    "brainstorm": {
+      "weight": 0.55,
+      "exclusive": true,
+      "phrases": ["先讨论", "几种方案", "brainstorm", "暂时不要建文件"]
+    }
+  }
+}

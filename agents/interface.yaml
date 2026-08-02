@@ -1,0 +1,26 @@
+interface:
+  display_name: "回归验证"
+  short_description: "维护跨仓、UI 与授权历史返工回归门禁，防止旧问题回流"
+  default_prompt: "Use $regression-verification after the final file write to automatically execute the project-declared completion entrypoint, rerun it after any later write, and audit changed-file, UI, design-source, and any explicitly authorized privacy-safe Codex rework coverage before declaring this coding task complete."
+compatibility:
+  canonical_format: "agent-skills"
+  adapter_targets:
+    - "openai"
+    - "claude"
+    - "generic"
+    - "vscode"
+  activation:
+    mode: "implicit"
+    paths: []
+  execution:
+    context: "inline"
+    shell: "powershell"
+  trust:
+    source_tier: "local"
+    remote_inline_execution: "forbid"
+    remote_metadata_policy: "allow-metadata-only"
+  degradation:
+    openai: "metadata-adapter"
+    claude: "neutral-source-plus-adapter"
+    generic: "neutral-source"
+    vscode: "agent-skills-source-with-vscode-notes"

@@ -1,0 +1,14 @@
+{"id":"completion-gate","prompt":"这次代码写完前跑一下多仓回归验证，不要漏接口和客户端。","expected":"trigger","reason":"明确要求完工前跨仓回归"}
+{"id":"automatic-completion-entrypoint","prompt":"把项目声明的完工入口加成 Codex 自动触发，最后一次写文件后无需我提醒就执行。","expected":"trigger","reason":"项目权威完工入口必须由代理自动执行"}
+{"id":"changed-selection","prompt":"根据当前改动选择需要的业务板块，并补齐依赖后执行。","expected":"trigger","reason":"按变更选择和依赖扩展"}
+{"id":"checker-split","prompt":"把项目权威单体检查器拆成可以按模块执行的回归项。","expected":"trigger","reason":"单体检查器拆分映射"}
+{"id":"coverage-audit","prompt":"全量扫描所有关联仓库里的测试和工具，漏进回归中心的全部补上。","expected":"trigger","reason":"原生验证全覆盖审计"}
+{"id":"cross-repo-contract","prompt":"新增接口、字段和配置后，把管理端、客户端、节点核心的验证一起闭环。","expected":"trigger","reason":"跨仓契约变更需要完整回归"}
+{"id":"release-gate","prompt":"发布前跑 full、release，并明确真机或生产回读是否阻塞。","expected":"trigger","reason":"发布和外部证据门禁"}
+{"id":"ui-design-regression","prompt":"把管理端、客户端的 UI、设计图、设计标注和截图证据全部加进回归验证。","expected":"trigger","reason":"UI 与设计源回归需要专门清单和证据分层"}
+{"id":"skill-maintenance","prompt":"Update the regression-verification skill, test it, and publish a release.","expected":"trigger","reason":"技能自身维护和发布"}
+{"id":"codex-rework-regression","prompt":"全量扫描授权的 Codex 会话，同一程序或 UI 写了又被要求还原超过两次的自动加入回归。","expected":"trigger","reason":"重复误改和人工还原需要脱敏晋升为长期回归"}
+{"id":"explanation-only","prompt":"解释一下当前回归目录是怎么工作的，不要修改也不要执行。","expected":"no_trigger","reason":"仅解释且禁止执行"}
+{"id":"status-only","prompt":"刚才的测试运行到哪了？","expected":"no_trigger","reason":"仅询问状态"}
+{"id":"explicit-no-verification","prompt":"只改 README 里的一个错别字，不需要跑项目验证。","expected":"no_trigger","reason":"用户明确排除项目验证"}
+{"id":"brainstorm-only","prompt":"先讨论可能的测试框架，暂时不要建文件。","expected":"no_write","reason":"仅讨论方案"}

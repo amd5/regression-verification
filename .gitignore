@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local governance and packaging output may contain machine-specific paths.
+reports/*
+!reports/conformance_matrix.md
+!reports/output-eval.md
+!reports/output_quality_scorecard.md
+!reports/runtime_permission_probes.md
+!reports/security_trust_report.md
+!reports/trigger-eval.md

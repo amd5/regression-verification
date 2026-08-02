@@ -1,0 +1,38 @@
+name: Publish skill release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify tag and manifest version
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          version = json.loads(Path("manifest.json").read_text(encoding="utf-8"))["version"]
+          expected = f"v{version}"
+          actual = os.environ["GITHUB_REF_NAME"]
+          if actual != expected:
+              raise SystemExit(f"tag {actual} does not match manifest {expected}")
+          PY
+      - name: Run tests
+        run: python -B -m unittest discover -s tests -p "test_*.py" -v
+      - name: Verify CLI
+        run: python -B scripts/regression_verification.py --help
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" --verify-tag --generate-notes --title "regression-verification $GITHUB_REF_NAME"

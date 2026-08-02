@@ -1,0 +1,26 @@
+{
+  "recommended_threshold": 0.2,
+  "should_trigger": [
+    {"text": "这次代码写完前跑一下多仓回归验证，不要漏接口和客户端。", "family": "completion_gate"},
+    {"text": "把项目声明的完工入口加成 Codex 自动触发，最后一次写文件后无需我提醒就执行。", "family": "automatic_completion_entrypoint"},
+    {"text": "根据当前改动选择需要的业务板块，并补齐依赖后执行。", "family": "changed_selection"},
+    {"text": "把项目权威单体检查器拆成可以按模块执行的回归项。", "family": "checker_split"},
+    {"text": "全量扫描所有关联仓库里的测试和工具，漏进回归中心的全部补上。", "family": "coverage_audit"},
+    {"text": "新增接口、字段和配置后，把管理端、客户端、节点核心的验证一起闭环。", "family": "cross_repo_contract"},
+    {"text": "发布前跑 full、release，并明确真机或生产回读是否阻塞。", "family": "release_gate"},
+    {"text": "把管理端、客户端的 UI、设计图、设计标注和截图证据全部加进回归验证。", "family": "ui_design_regression"},
+    {"text": "全量扫描授权的 Codex 会话，同一 UI 写了又还原超过两次的自动加入回归。", "family": "codex_rework_regression"},
+    {"text": "Update the regression-verification skill, test it, and publish a release.", "family": "skill_maintenance"}
+  ],
+  "should_not_trigger": [
+    {"text": "解释一下当前回归目录是怎么工作的，不要修改也不要执行。", "family": "explanation_only"},
+    {"text": "刚才的测试运行到哪了？", "family": "status_only"},
+    {"text": "只改 README 里的一个错别字，不需要跑项目验证。", "family": "explicit_no_verification"},
+    {"text": "先讨论可能的测试框架，暂时不要建文件。", "family": "brainstorm_only"}
+  ],
+  "near_neighbor": [
+    {"text": "只执行这个函数的单元测试，不要求完整完工门禁。", "family": "focused_only"},
+    {"text": "生产节点需要重启，先给诊断建议，不要操作。", "family": "production_advice"},
+    {"text": "总结上一次回归报告中的失败。", "family": "report_summary"}
+  ]
+}

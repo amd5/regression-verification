@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "reviewed_at": "2026-08-02",
+  "capabilities": {
+    "network": {
+      "decision": "approved",
+      "reviewer": "local-user",
+      "scope": "Only scripts/release_skill.py may use the configured GitHub origin and the public GitHub Releases API while publishing this skill repository.",
+      "reason": "The user requires each skill change to push the main branch and version tag and verify the resulting GitHub Release without sending target-project data.",
+      "expires_at": "2027-08-02",
+      "evidence": [
+        "security/network_policy.json",
+        "reports/security_trust_report.md"
+      ],
+      "target_enforcement": {
+        "openai": "metadata-only permission contract; release still requires operator-authorized local execution",
+        "claude": "adapter permission contract; release still requires operator-authorized local execution",
+        "generic": "adapter permission contract; release still requires operator-authorized local execution",
+        "vscode": "workspace-trust plus adapter permission contract; release still requires operator-authorized local execution"
+      }
+    },
+    "file_read": {
+      "decision": "approved",
+      "reviewer": "local-user",
+      "scope": "Project-owned regression catalog, profiles, module manifests, checks, native-test inventory, UI/design surface inventory, known failures, repository paths, and applicable project instructions selected for the active task.",
+      "reason": "Complete regression coverage requires deterministic structure and reference auditing before execution.",
+      "expires_at": "2027-08-02",
+      "evidence": [
+        "scripts/regression_verification.py",
+        "tests/test_regression_verification.py",
+        "reports/security_trust_report.md"
+      ]
+    },
+    "file_write": {
+      "decision": "approved",
+      "reviewer": "local-user",
+      "scope": "Only scripts/release_skill.py may update this skill repository's manifest version and README version markers before its focused Git commit.",
+      "reason": "Deterministic version updates are required for the user-authorized governed skill release and are limited to the current skill repository.",
+      "expires_at": "2027-08-02",
+      "evidence": [
+        "scripts/release_skill.py",
+        "reports/security_trust_report.md"
+      ],
+      "target_enforcement": {
+        "openai": "metadata-only permission contract; writes remain limited by the local script and repository",
+        "claude": "adapter permission contract; writes remain limited by the local script and repository",
+        "generic": "adapter permission contract; writes remain limited by the local script and repository",
+        "vscode": "workspace-trust plus adapter permission contract; writes remain limited by the local script and repository"
+      }
+    },
+    "subprocess": {
+      "decision": "approved",
+      "reviewer": "local-user",
+      "scope": "Only a detected project-owned regression/run.php, run.py, run.ps1, or run.sh entrypoint with validated changed, all, module, profile, and base arguments; no shell evaluation and no manifest-controlled executable.",
+      "reason": "The skill must execute the authoritative project regression gate while preventing arbitrary command injection from manifests.",
+      "expires_at": "2027-08-02",
+      "evidence": [
+        "scripts/regression_verification.py",
+        "tests/test_regression_verification.py",
+        "reports/runtime_permission_probes.md"
+      ],
+      "target_enforcement": {
+        "openai": "metadata-only permission contract; subprocess execution requires explicit project runner arguments",
+        "claude": "adapter permission contract; subprocess execution requires explicit project runner arguments",
+        "generic": "adapter permission contract; subprocess execution requires explicit project runner arguments",
+        "vscode": "workspace-trust plus adapter permission contract; subprocess execution requires explicit project runner arguments"
+      },
+      "risk_boundary": "Migration, production, deployment, node-control, credentialed, and real-device profiles still require the authority and prerequisites defined by the target project."
+    }
+  }
+}

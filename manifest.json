@@ -1,0 +1,19 @@
+{
+  "name": "regression-verification",
+  "version": "2.0.4",
+  "owner": "local-user",
+  "license": "UNLICENSED",
+  "updated_at": "2026-08-02",
+  "review_cadence": "per-release",
+  "status": "active",
+  "maturity_tier": "governed",
+  "lifecycle_stage": "governed",
+  "context_budget_tier": "governed",
+  "target_platforms": ["openai", "claude", "agent-skills", "generic", "vscode"],
+  "input_files": [
+    "file-backed fixture: project-owned regression/catalog.json, checks.json, module manifests, profiles, native test inventory, optional UI/design surface inventory, and optional privacy-safe Codex rework inventory"
+  ],
+  "output_contract": "After the final file write, automatically execute the project-declared completion entrypoint and rerun it after any later write; audit the project-owned modular regression center, including UI/design evidence and authorized privacy-safe Codex rework promotion, and report exact PASS, FAIL, BLOCKED, KNOWN_FAIL, or SKIPPED evidence without duplicating native tests.",
+  "rollback_boundary": "Restore only regression catalog, module, profile, inventory, documentation, or skill-package files changed by the current task; never erase native tests, production data, credentials, or unrelated worktree changes.",
+  "factory_components": ["scripts", "references", "evals", "tests", "reports"]
+}

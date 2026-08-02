@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "default_policy": {
+    "require_https": true,
+    "custom_hosts": "deny-by-default",
+    "review_rule": "Only the governed release script may contact the configured GitHub origin and public GitHub Releases API."
+  },
+  "scripts": {
+    "scripts/release_skill.py": {
+      "purpose": "Atomically push the skill main branch and SemVer tag, then verify the GitHub Release created for that tag.",
+      "allowed_hosts": ["github.com", "api.github.com"],
+      "allowed_path_prefixes": ["/{origin_owner}/{origin_repository}", "/repos/{origin_owner}/{origin_repository}/releases/tags/"],
+      "requires_https": true,
+      "custom_url_policy": "origin must match a github.com HTTPS or SSH repository; arbitrary hosts are rejected",
+      "timeout_seconds": 300,
+      "auth": "existing Git credential for push; GitHub Release readback is public"
+    }
+  }
+}

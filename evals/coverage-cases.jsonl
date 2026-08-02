@@ -1,0 +1,8 @@
+{"id":"new-api-contract","change":"新增服务端接口字段并修改管理端类型和客户端配置消费","expected_modules":["api-contract","client-config"],"required_evidence":["changed + completion","跨仓契约检查","原生测试"]}
+{"id":"monolithic-checker","change":"项目权威单体检查器新增稳定检查 ID","expected_actions":["同步业务板块映射","专项执行","映射完整性审计"]}
+{"id":"new-tool","change":"tools 目录新增 verify_node_state.php","expected_actions":["递归发现","登记 native_test_inventory","分类风险与配置档","映射检查 ID"]}
+{"id":"migration","change":"新增会修改数据库结构的幂等迁移入口","expected_profile":"migration","required_evidence":["授权","备份","结构回读","幂等重跑","回滚","零残留"]}
+{"id":"client-device","change":"移动客户端连接上下文修复需要真机验证","expected_profile":"real-device","expected_status_without_device":"BLOCKED"}
+{"id":"baseline-failure","change":"专项检查通过但 full 存在无关失败","expected_status":"FAIL","required_reporting":["专项证据","完整门禁失败","失败归因"]}
+{"id":"ui-design","change":"新增管理端页面、客户端组件、设计资源或设计图","expected_modules":["ui-design"],"expected_actions":["发现界面候选并唯一映射","登记设计源、状态与视口","completion 自动化","runtime 浏览器或桌面证据","real-device 主应用证据"],"expected_status_without_external_evidence":"BLOCKED"}
+{"id":"codex-rework","change":"用户授权全量 Codex 历史，存在同一 UI 三次写入后要求还原并再次写入","expected_modules":["codex-rework"],"expected_actions":["全量流式扫描授权范围","剥离规则和环境注入","每轮同一目标去重","排除业务恢复和技术 rollback","映射稳定检查","只提交脱敏清单"],"threshold":3}
