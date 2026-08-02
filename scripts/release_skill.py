@@ -157,12 +157,9 @@ def validate_repository() -> tuple[str, str, str]:
 
 def run_checks(skill_name: str) -> None:
     run([sys.executable, "-B", "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py", "-v"])
-    helper = {
-        "requirement-closure": "validate_ledger.py",
-        "regression-verification": "regression_verification.py",
-    }.get(skill_name)
-    if helper:
-        run([sys.executable, "-B", str(ROOT / "scripts" / helper), "--help"])
+    if skill_name != "regression-verification":
+        raise ReleaseError(f"unexpected package name: {skill_name}")
+    run([sys.executable, "-B", str(ROOT / "scripts" / "regression_verification.py"), "--help"])
     git("diff", "--check")
 
 

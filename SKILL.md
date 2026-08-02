@@ -9,14 +9,14 @@ Turn project changes into repeatable, evidence-backed regression gates.
 
 ## Workflow
 
-1. Register requirements and repository rules; use requirement-closure for cross-repository or three-plus-item work.
+1. Register requirements and repository rules. For cross-repository or three-plus-item work, assign stable requirement IDs with acceptance signals, keep them in the plan, reconcile later user steering without dropping non-conflicting items, and require every active item to be verified before completion.
 2. Discover related repositories, native verification entrypoints, and the existing `regression/` center. Model by business module and keep native tests in their owning repositories. Read [architecture.md](references/architecture.md) and [coverage-audit.md](references/coverage-audit.md).
 3. Map changed code, contracts, docs, migrations, tools, and tests to triggers, dependencies, checks, profiles, and evidence. For UI or design work, read [ui-design.md](references/ui-design.md) and map each surface exactly once.
 4. When the user explicitly authorizes Codex history, read [codex-rework.md](references/codex-rework.md), scan the complete authorized scope without sampling, and promote only targets with at least three independent complete write-correction-write cycles. Keep raw history and local cache out of Git.
 5. Run `python scripts/regression_verification.py audit --root <project-root>` for the standard JSON layout. Fix every structural, reference, inventory, command, cycle, known-failure, UI-surface, or Codex-rework inventory error.
 6. Preserve authoritative checkers through stable IDs. Register every native entrypoint or classify it as runtime, migration, real-device, post-release, forbidden, or obsolete.
 7. After the final file write, automatically execute the exact completion entrypoint declared by the project without asking the user to run it. Rerun it after any later in-scope write. When no project-specific entrypoint exists, run changed + completion through `python scripts/regression_verification.py run --root <project-root> --changed --profile completion --execute`; add `--base default` for committed branch differences, and use full or release when required.
-8. Apply [execution-and-results.md](references/execution-and-results.md), re-read requirements, and use verification-before-completion. Report modules, checks, statuses, reports, blockers, and residual risk; focused evidence never replaces a required full gate.
+8. Apply [execution-and-results.md](references/execution-and-results.md), re-read requirements, and run fresh scope-appropriate checks after the latest write. Inspect complete output, exit codes, failures, and required skips; do not claim completion for stale, partial, failed, blocked, or ambiguous evidence. Report modules, checks, statuses, reports, blockers, and residual risk; focused evidence never replaces a required full gate.
 
 Use `scripts/regression_verification.py --help` for deterministic audit and execution syntax. Re-run `evals/` when trigger, coverage, execution, or result boundaries change.
 

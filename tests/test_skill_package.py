@@ -57,6 +57,27 @@ class SkillPackageTests(unittest.TestCase):
         self.assertIn("automatically execute the project-declared completion entrypoint", openai)
         self.assertIn("无需用户提醒自动执行项目声明的权威完工入口", execution)
 
+    def test_package_has_no_cross_skill_dependency(self):
+        forbidden = (
+            "requirement-closure",
+            "verification-before-completion",
+        )
+        runtime_files = [
+            ROOT / "SKILL.md",
+            ROOT / "README.md",
+            ROOT / "README_EN.md",
+            *sorted((ROOT / "references").glob("*.md")),
+            *sorted((ROOT / "scripts").glob("*.py")),
+        ]
+        for path in runtime_files:
+            text = path.read_text(encoding="utf-8").lower()
+            for skill_name in forbidden:
+                self.assertNotIn(skill_name, text, f"cross-skill dependency in {path.relative_to(ROOT)}")
+
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("stable requirement IDs with acceptance signals", skill)
+        self.assertIn("run fresh scope-appropriate checks after the latest write", skill)
+
     def test_local_paths_are_generic(self):
         local_path = re.compile(
             r"(?i)(?:[a-z]:\\(?!path(?:\\|$))|/(?:home|users|var|srv|workspace)(?:/|$))"
