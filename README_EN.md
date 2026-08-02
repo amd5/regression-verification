@@ -1,6 +1,8 @@
 # regression-verification
 
-Current version: `2.0.4`
+Current version: `2.0.5`
+
+Repository: <https://github.com/amd5/regression-verification>
 
 ## Overview
 

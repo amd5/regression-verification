@@ -1,6 +1,8 @@
 # regression-verification
 
-当前版本：`2.0.4`
+当前版本：`2.0.5`
+
+项目仓库：<https://github.com/amd5/regression-verification>
 
 ## 简介
 
