@@ -159,7 +159,7 @@ class RegressionVerificationTests(unittest.TestCase):
         self.write_json("catalog.json", catalog)
         self.write_json("modules/codex-rework/module.json", {
             "id": "codex-rework", "title": "重复返工", "description": "重复返工门禁",
-            "always": True, "depends_on": ["core"], "triggers": {},
+            "depends_on": ["core"], "triggers": {"backend": ["regression/codex_rework_inventory.json"]},
             "check_ids": ["backend.tests", "backend.rework-audit"],
         })
         self.write_json("codex_rework_inventory.json", {
@@ -196,6 +196,46 @@ class RegressionVerificationTests(unittest.TestCase):
 
         self.assertEqual(result.status, "PASS", result.errors)
         self.assertEqual(result.codex_rework_promotions, 1)
+
+    def test_codex_rework_accepts_project_execution_policy(self):
+        self.enable_codex_rework_inventory()
+        for always in (False, True):
+            with self.subTest(always=always):
+                module = self.read_json("modules/codex-rework/module.json")
+                module["always"] = always
+                self.write_json("modules/codex-rework/module.json", module)
+                result = regression_verification.audit_project(self.root)
+                self.assertEqual(result.status, "PASS", result.errors)
+
+    def test_empty_codex_rework_inventory_does_not_require_always(self):
+        self.enable_codex_rework_inventory()
+        inventory = self.read_json("codex_rework_inventory.json")
+        inventory.update(promotions=[], promoted_check_ids=[])
+        self.write_json("codex_rework_inventory.json", inventory)
+        result = regression_verification.audit_project(self.root)
+        self.assertEqual(result.status, "PASS", result.errors)
+        self.assertEqual(result.codex_rework_promotions, 0)
+
+    def test_on_demand_codex_rework_still_requires_trigger_paths(self):
+        self.enable_codex_rework_inventory()
+        module = self.read_json("modules/codex-rework/module.json")
+        module["triggers"] = {"backend": []}
+        self.write_json("modules/codex-rework/module.json", module)
+        result = regression_verification.audit_project(self.root)
+        self.assertIn("模块至少需要一个触发路径或 always：codex-rework", result.errors)
+
+    def test_codex_rework_still_requires_module_and_promoted_checks(self):
+        self.enable_codex_rework_inventory()
+        module = self.read_json("modules/codex-rework/module.json")
+        module["check_ids"] = ["backend.rework-audit"]
+        self.write_json("modules/codex-rework/module.json", module)
+        result = regression_verification.audit_project(self.root)
+        self.assertIn("codex-rework 板块没有包含全部晋升检查", result.errors)
+        catalog = self.read_json("catalog.json")
+        catalog["modules"].remove("modules/codex-rework/module.json")
+        self.write_json("catalog.json", catalog)
+        result = regression_verification.audit_project(self.root)
+        self.assertIn("存在 Codex 重复返工清单但缺少 codex-rework 板块", result.errors)
 
     def test_rejects_codex_rework_privacy_leak_and_short_cycle(self):
         self.enable_codex_rework_inventory()

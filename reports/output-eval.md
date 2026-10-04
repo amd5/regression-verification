@@ -12,3 +12,5 @@ Expected behavior:
 - UI candidates map exactly once, screenshots do not replace authoritative annotations, and absent browser, original-design, desktop-runtime, or real-device evidence remains `BLOCKED`.
 
 Machine-readable cases are maintained in `evals/output_cases.jsonl`.
+
+- Codex rework promotion honors project-defined triggers and dependencies; an inventory alone does not force `always=true`. Missing trigger paths, promoted check mappings, and privacy violations still fail audit.

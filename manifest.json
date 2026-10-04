@@ -1,9 +1,9 @@
 {
   "name": "regression-verification",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "owner": "local-user",
   "license": "UNLICENSED",
-  "updated_at": "2026-08-02",
+  "updated_at": "2026-10-04",
   "review_cadence": "per-release",
   "status": "active",
   "maturity_tier": "governed",

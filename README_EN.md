@@ -1,6 +1,6 @@
 # regression-verification
 
-Current version: `2.0.6`
+Current version: `2.0.7`
 
 Repository: <https://github.com/amd5/regression-verification>
 
@@ -138,3 +138,5 @@ regression-verification/
 ## License
 
 See `LICENSE`.
+
+Codex rework checks run on demand using project-defined triggers and dependencies. An inventory or promoted check does not require `always=true`; explicit project policies remain authoritative.

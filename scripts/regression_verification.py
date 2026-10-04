@@ -275,8 +275,8 @@ def audit_codex_rework_inventory(
     if not isinstance(declared_checks, list) or set(map(str, declared_checks)) != promotion_checks:
         result.errors.append("Codex 重复返工 promoted_check_ids 与晋升项不一致")
     module = modules.get("codex-rework")
-    if not isinstance(module, dict) or module.get("always") is not True:
-        result.errors.append("存在 Codex 重复返工清单但缺少 always=true 的 codex-rework 板块")
+    if not isinstance(module, dict):
+        result.errors.append("存在 Codex 重复返工清单但缺少 codex-rework 板块")
     elif not promotion_checks.issubset(set(map(str, module.get("check_ids", [])))):
         result.errors.append("codex-rework 板块没有包含全部晋升检查")
     result.codex_rework_promotions = len(promotion_ids)

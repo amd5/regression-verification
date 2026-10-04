@@ -1,6 +1,6 @@
 # regression-verification
 
-当前版本：`2.0.6`
+当前版本：`2.0.7`
 
 项目仓库：<https://github.com/amd5/regression-verification>
 
@@ -18,7 +18,7 @@
 - 把单体检查器按稳定检查 ID 拆分映射到业务板块；
 - 全量审计 `tools/`、脚本和各仓原生验证入口，阻止漏登记、重复和空套件；
 - 审计 UI 表面、批准设计源、状态、视口、截图证据、组件、样式和视觉运行态，阻止界面候选漏登记或伪通过；
-- 在用户明确授权时全量扫描 Codex 历史，把同一文件、具体模块或真实 UI 表面至少 3 次完整“写入、人工要求还原、再次写入”循环自动晋升为脱敏常驻回归项；
+- 在用户明确授权时全量扫描 Codex 历史，把同一文件、具体模块或真实 UI 表面至少 3 次完整“写入、人工要求还原、再次写入”循环自动晋升为脱敏回归项，并按项目触发规则和依赖关系按需执行；
 - 区分 completion、full、release、runtime、migration、real-device 和 post-release；
 - 保留 `PASS`、`FAIL`、`BLOCKED`、`KNOWN_FAIL` 和 `SKIPPED` 的真实语义；
 - 强制数据库、Redis、队列和临时文件隔离、恢复与零残留证据。
